@@ -44,7 +44,7 @@
   }
 
   .app {
-    max-width: 760px;
+    max-width: 780px;
     margin: 0 auto;
     background: var(--bg);
     border-radius: var(--radius-lg);
@@ -64,18 +64,27 @@
   .header-left { display: flex; align-items: center; gap: 12px; }
   .logo {
     width: 40px; height: 40px; border-radius: var(--radius-md);
-    background: var(--red); display: flex; align-items: center; justify-content: center;
-    color: white; font-size: 20px; flex-shrink: 0;
+    background: var(--red); display: flex; align-items: center;
+    justify-content: center; color: white; font-size: 20px; flex-shrink: 0;
   }
   .title { font-size: 17px; font-weight: 600; color: var(--text); }
   .subtitle { font-size: 13px; color: var(--text-secondary); margin-top: 2px; }
-  .stats { display: flex; gap: 8px; }
+  .stats { display: flex; gap: 8px; align-items: center; }
   .stat-pill {
     font-size: 12px; padding: 4px 10px; border-radius: 999px;
     border: 0.5px solid var(--border-md);
     color: var(--text-secondary); white-space: nowrap;
   }
   .stat-pill span { font-weight: 600; color: var(--text); }
+  .sync-btn {
+    background: none; border: 0.5px solid var(--border-md);
+    border-radius: 999px; padding: 4px 10px; font-size: 12px;
+    color: var(--text-secondary); cursor: pointer; font-family: inherit;
+    transition: all 0.15s;
+  }
+  .sync-btn:hover { background: var(--bg-secondary); color: var(--text); }
+  .sync-btn.spinning { animation: spin 1s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
 
   .add-section {
     padding: 1rem 1.5rem;
@@ -99,29 +108,24 @@
     width: 100%; padding: 8px 10px; font-size: 13px;
     border: 0.5px solid var(--border-md);
     border-radius: var(--radius-md);
-    background: var(--bg);
-    color: var(--text);
-    font-family: inherit;
-    transition: border-color 0.15s;
+    background: var(--bg); color: var(--text);
+    font-family: inherit; transition: border-color 0.15s;
   }
   textarea { resize: vertical; min-height: 64px; }
   input[type="text"]:focus, textarea:focus, select:focus {
-    outline: none; border-color: var(--red); box-shadow: 0 0 0 3px rgba(226,75,74,0.12);
+    outline: none; border-color: var(--red);
+    box-shadow: 0 0 0 3px rgba(226,75,74,0.12);
   }
 
   .upload-zone {
     border: 1.5px dashed var(--border-md);
     border-radius: var(--radius-md);
-    padding: 20px 16px;
-    text-align: center;
-    cursor: pointer;
+    padding: 20px 16px; text-align: center; cursor: pointer;
     transition: border-color 0.15s, background 0.15s;
-    background: var(--bg-secondary);
-    position: relative;
+    background: var(--bg-secondary); position: relative;
   }
   .upload-zone:hover, .upload-zone.drag-over {
-    border-color: var(--red);
-    background: var(--bg);
+    border-color: var(--red); background: var(--bg);
   }
   .upload-zone input {
     position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
@@ -151,6 +155,7 @@
     font-weight: 600; font-family: inherit; transition: background 0.15s;
   }
   .btn-submit:hover { background: var(--red-hover); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
 
   .filters {
     padding: 10px 1.5rem;
@@ -173,20 +178,20 @@
   }
   .empty-icon { font-size: 40px; display: block; margin-bottom: 10px; opacity: 0.35; }
 
+  .loading-state {
+    text-align: center; padding: 2rem; color: var(--text-secondary); font-size: 13px;
+  }
+
   .bug-card {
     border: 0.5px solid var(--border);
     border-radius: var(--radius-lg);
-    margin-bottom: 10px;
-    background: var(--bg);
-    transition: border-color 0.15s;
-    overflow: hidden;
+    margin-bottom: 10px; background: var(--bg);
+    transition: border-color 0.15s; overflow: hidden;
   }
   .bug-card:hover { border-color: var(--border-md); }
   .bug-card.resolved { opacity: 0.5; }
 
-  .bug-top {
-    display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px;
-  }
+  .bug-top { display: flex; align-items: flex-start; gap: 12px; padding: 12px 14px; }
   .bug-checkbox {
     width: 20px; height: 20px; border-radius: 50%;
     border: 1.5px solid var(--border-md);
@@ -198,10 +203,7 @@
   .bug-checkbox.checked { background: #22c55e; border-color: #22c55e; color: white; }
 
   .bug-body { flex: 1; min-width: 0; }
-  .bug-title {
-    font-size: 14px; font-weight: 500; color: var(--text);
-    line-height: 1.4; margin-bottom: 3px;
-  }
+  .bug-title { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.4; margin-bottom: 3px; }
   .bug-card.resolved .bug-title { text-decoration: line-through; color: var(--text-tertiary); }
   .bug-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 6px; }
   .bug-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
@@ -219,9 +221,7 @@
   }
   .bug-date { font-size: 11px; color: var(--text-tertiary); margin-left: auto; }
 
-  .bug-screenshots {
-    display: flex; gap: 6px; padding: 0 14px 12px 46px; flex-wrap: wrap;
-  }
+  .bug-screenshots { display: flex; gap: 6px; padding: 0 14px 12px 46px; flex-wrap: wrap; }
   .ss-thumb {
     width: 72px; height: 54px; border-radius: var(--radius-md);
     object-fit: cover; border: 0.5px solid var(--border);
@@ -246,18 +246,13 @@
   .action-btn:hover { color: var(--text-secondary); background: var(--bg-secondary); }
   .action-btn.delete:hover { color: var(--red); }
 
-  /* Lightbox */
   .lightbox {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,0.88); z-index: 1000;
     align-items: center; justify-content: center;
   }
   .lightbox.open { display: flex; }
-  .lightbox img {
-    max-width: 92vw; max-height: 92vh;
-    border-radius: var(--radius-lg);
-    object-fit: contain;
-  }
+  .lightbox img { max-width: 92vw; max-height: 92vh; border-radius: var(--radius-lg); object-fit: contain; }
   .lightbox-close {
     position: absolute; top: 16px; right: 16px;
     background: rgba(255,255,255,0.15); border: none; color: white;
@@ -266,7 +261,6 @@
   }
   .lightbox-close:hover { background: rgba(255,255,255,0.25); }
 
-  /* Toast */
   .toast {
     position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%);
     background: var(--text); color: var(--bg);
@@ -288,13 +282,14 @@
     <div class="header-left">
       <div class="logo">🐛</div>
       <div>
-        <div class="title">Bug Tracker</div>
-        <div class="subtitle" id="subtitle">No bugs yet — nice!</div>
+        <div class="title">Game Bug Tracker</div>
+        <div class="subtitle" id="subtitle">Loading...</div>
       </div>
     </div>
     <div class="stats">
       <div class="stat-pill">Open: <span id="count-open">0</span></div>
       <div class="stat-pill">Fixed: <span id="count-fixed">0</span></div>
+      <button class="sync-btn" onclick="loadBugs()" title="Refresh">↻ Refresh</button>
     </div>
   </div>
 
@@ -347,7 +342,7 @@
       </div>
       <div class="form-footer">
         <button class="btn-cancel" onclick="cancelForm()">Cancel</button>
-        <button class="btn-submit" onclick="submitBug()">🐛 Log bug</button>
+        <button class="btn-submit" id="btn-submit" onclick="submitBug()">🐛 Log bug</button>
       </div>
     </div>
   </div>
@@ -363,38 +358,66 @@
     <button class="filter-btn" onclick="setFilter('Crash',this)">Crash</button>
   </div>
 
-  <div class="bugs-list" id="bugs-list"></div>
+  <div class="bugs-list" id="bugs-list">
+    <div class="loading-state">Loading bugs...</div>
+  </div>
 
 </div>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox()">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <img id="lightbox-img" src="" alt="Bug screenshot" />
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-  const STORAGE_KEY = 'gamebugs_v1';
+  const SUPABASE_URL = 'https://nbrususucbddovauegrej.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_uWTxCQ7Dz-KEFKnKtWTOBw__Rx5NbKZ';
+  const HEADERS = {
+    'Content-Type': 'application/json',
+    'apikey': SUPABASE_KEY,
+    'Authorization': `Bearer ${SUPABASE_KEY}`
+  };
+
   let bugs = [];
   let pendingImages = [];
   let currentFilter = 'all';
 
-  function loadBugs() {
-    try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      bugs = raw ? JSON.parse(raw) : [];
-    } catch(e) { bugs = []; }
-    updateStats();
-    renderBugs();
+  async function api(path, options = {}) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/${path}`, {
+      headers: { ...HEADERS, ...(options.headers || {}) },
+      ...options
+    });
+    if (!res.ok) {
+      const err = await res.text();
+      throw new Error(err);
+    }
+    const text = await res.text();
+    return text ? JSON.parse(text) : null;
   }
 
-  function saveBugs() {
+  async function loadBugs() {
+    document.getElementById('subtitle').textContent = 'Syncing...';
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(bugs));
+      const data = await api('bugs?order=created_at.desc', {
+        headers: { 'Prefer': 'return=representation' }
+      });
+      bugs = (data || []).map(row => ({
+        id: row.id,
+        title: row.title,
+        desc: row.description || '',
+        priority: row.priority || 'medium',
+        category: row.category || 'Other',
+        screenshots: row.screenshots ? JSON.parse(row.screenshots) : [],
+        resolved: row.resolved || false,
+        date: new Date(row.created_at).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      }));
+      updateStats();
+      renderBugs();
     } catch(e) {
-      showToast('Storage full — try removing old bugs');
+      document.getElementById('subtitle').textContent = 'Error loading bugs';
+      document.getElementById('bugs-list').innerHTML = `<div class="loading-state">⚠️ Could not connect to database. Check your internet connection.</div>`;
+      console.error(e);
     }
   }
 
@@ -453,44 +476,72 @@
     handleFiles(e.dataTransfer.files);
   });
 
-  function submitBug() {
+  async function submitBug() {
     const title = document.getElementById('f-title').value.trim();
     if (!title) { document.getElementById('f-title').focus(); showToast('Please enter a bug title'); return; }
+
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Saving...';
+
     const bug = {
       id: Date.now().toString(),
       title,
-      desc: document.getElementById('f-desc').value.trim(),
+      description: document.getElementById('f-desc').value.trim(),
       priority: document.getElementById('f-priority').value,
       category: document.getElementById('f-category').value,
-      screenshots: [...pendingImages],
-      resolved: false,
-      date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+      screenshots: JSON.stringify(pendingImages),
+      resolved: false
     };
-    bugs.unshift(bug);
-    saveBugs();
-    updateStats();
-    renderBugs();
-    cancelForm();
-    showToast('Bug logged!');
+
+    try {
+      await api('bugs', {
+        method: 'POST',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify(bug)
+      });
+      cancelForm();
+      await loadBugs();
+      showToast('Bug logged!');
+    } catch(e) {
+      showToast('Failed to save — try again');
+      console.error(e);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = '🐛 Log bug';
+    }
   }
 
-  function toggleResolved(id) {
+  async function toggleResolved(id) {
     const bug = bugs.find(b => b.id === id);
     if (!bug) return;
-    bug.resolved = !bug.resolved;
-    saveBugs();
-    updateStats();
-    renderBugs();
-    showToast(bug.resolved ? 'Marked as fixed ✓' : 'Reopened');
+    const newState = !bug.resolved;
+    try {
+      await api(`bugs?id=eq.${id}`, {
+        method: 'PATCH',
+        headers: { 'Prefer': 'return=minimal' },
+        body: JSON.stringify({ resolved: newState })
+      });
+      bug.resolved = newState;
+      updateStats();
+      renderBugs();
+      showToast(newState ? 'Marked as fixed ✓' : 'Reopened');
+    } catch(e) {
+      showToast('Failed to update — try again');
+    }
   }
 
-  function deleteBug(id) {
+  async function deleteBug(id) {
     if (!confirm('Delete this bug?')) return;
-    bugs = bugs.filter(b => b.id !== id);
-    saveBugs();
-    updateStats();
-    renderBugs();
-    showToast('Bug deleted');
+    try {
+      await api(`bugs?id=eq.${id}`, { method: 'DELETE' });
+      bugs = bugs.filter(b => b.id !== id);
+      updateStats();
+      renderBugs();
+      showToast('Bug deleted');
+    } catch(e) {
+      showToast('Failed to delete — try again');
+    }
   }
 
   function setFilter(f, btn) {
@@ -520,7 +571,7 @@
   }
 
   function esc(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
   function renderBugs() {
@@ -586,6 +637,8 @@
   }
 
   loadBugs();
+
+  setInterval(loadBugs, 30000);
 </script>
 </body>
 </html>
