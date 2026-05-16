@@ -401,9 +401,7 @@
   async function loadBugs() {
     document.getElementById('subtitle').textContent = 'Syncing...';
     try {
-      const data = await api('bugs?order=created_at.desc', {
-        headers: { 'Prefer': 'return=representation' }
-      });
+      const data = await api('bugs?order=created_at.desc', {});
       bugs = (data || []).map(row => ({
         id: row.id,
         title: row.title,
@@ -499,7 +497,6 @@
     try {
       await api('bugs', {
         method: 'POST',
-        headers: { 'Prefer': 'return=minimal' },
         body: JSON.stringify(bug)
       });
       cancelForm();
@@ -521,7 +518,6 @@
     try {
       await api(`bugs?id=eq.${id}`, {
         method: 'PATCH',
-        headers: { 'Prefer': 'return=minimal' },
         body: JSON.stringify({ resolved: newState })
       });
       bug.resolved = newState;
